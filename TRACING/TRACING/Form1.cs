@@ -57,6 +57,41 @@ namespace TRACING
             return true;
         }
 
+        Material[] fillMaterials()
+        {
+            Material[] materials = new Material[8];
+            Vector4 lightCoefs = new Vector4(0.4f, 0.9f, 0.0f, 512.0f);
+            materials[0] = new Material(new Vector3(0, 1, 0), lightCoefs, 0.5f, 1, 1);
+            materials[1] = new Material(new Vector3(0, 0, 1), lightCoefs, 0.5f, 1, 1);
+            materials[2] = new Material(new Vector3(1, 0, 0), lightCoefs, 0.5f, 1, 1);
+            materials[3] = new Material(new Vector3(1, 1, 1), lightCoefs, 0.5f, 1, 1);
+            materials[4] = new Material(new Vector3(1, 1, 1), lightCoefs, 0.5f, 1, 1);
+            materials[5] = new Material(new Vector3(1, 1, 1), lightCoefs, 0.5f, 1, 1);
+            materials[6] = new Material(new Vector3(1, 1, 1), new Vector4(0.4f, 0.9f, 0.9f, 50.0f), 0.8f, 1.5f, 2);
+            materials[7] = new Material(new Vector3(1, 0, 1), lightCoefs, 0.5f, 1, 1);
+            return materials;
+        }
+
+        void initMaterials()
+        {
+            Material[] materials = fillMaterials();
+            int location;
+            for (int i = 0; i < materials.Length; i++)
+            {
+                location = GL.GetUniformLocation(BasicProgramID, "uMaterials[" + i + "].Color");
+                GL.Uniform3(location, materials[i].Color);
+                location = GL.GetUniformLocation(BasicProgramID, "uMaterials[" + i + "].LightCoeffs");
+                GL.Uniform4(location, materials[i].LightCoeffs);
+                location = GL.GetUniformLocation(BasicProgramID, "uMaterials[" + i + "].ReflectionCoef");
+                GL.Uniform1(location, materials[i].ReflectionCoef);
+                location = GL.GetUniformLocation(BasicProgramID, "uMaterials[" + i + "].RefractionCoef");
+                GL.Uniform1(location, materials[i].RefractionCoef);
+                location = GL.GetUniformLocation(BasicProgramID, "uMaterials[" + i + "].MaterialType");
+                GL.Uniform1(location, materials[i].MaterialType);
+            }
+
+        }
+
         int vbo_position;
         int attribute_vpos = 1;
 
@@ -66,6 +101,7 @@ namespace TRACING
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             ;
             GL.UseProgram(BasicProgramID);
+            initMaterials();
             // Quad
             GL.Color3(Color.White);
             GL.Begin(PrimitiveType.Quads);
@@ -101,6 +137,26 @@ namespace TRACING
         {
             Draw();
         }
+
+        public struct Material
+        {
+            //diffuse color
+            public Vector3 Color;
+            // ambient, diffuse and specular coeffs
+            public Vector4 LightCoeffs;
+            // 0 - non-reflection, 1 - mirror
+            public float ReflectionCoef;
+            public float RefractionCoef;
+            public int MaterialType;
+            public Material(Vector3 color, Vector4 lightCoefs, float reflectionCoef, float refractionCoef, int type)
+            {
+                Color = color;
+                LightCoeffs = lightCoefs;
+                ReflectionCoef = reflectionCoef;
+                RefractionCoef = refractionCoef;
+                MaterialType = type;
+            }
+        };
     }
 }
 
