@@ -61,14 +61,14 @@ namespace TRACING
         {
             Material[] materials = new Material[8];
             Vector4 lightCoefs = new Vector4(0.4f, 0.9f, 0.0f, 512.0f);
-            materials[0] = new Material(new Vector3(0, 1, 0), lightCoefs, 0.5f, 1, 1);
-            materials[1] = new Material(new Vector3(0, 0, 1), lightCoefs, 0.5f, 1, 1);
-            materials[2] = new Material(new Vector3(1, 0, 0), lightCoefs, 0.5f, 1, 1);
-            materials[3] = new Material(new Vector3(1, 1, 1), lightCoefs, 0.5f, 1, 1);
-            materials[4] = new Material(new Vector3(1, 1, 1), lightCoefs, 0.5f, 1, 1);
-            materials[5] = new Material(new Vector3(1, 1, 1), lightCoefs, 0.5f, 1, 1);
-            materials[6] = new Material(new Vector3(1, 1, 1), new Vector4(0.4f, 0.9f, 0.9f, 50.0f), 0.8f, 1.5f, 2);
-            materials[7] = new Material(new Vector3(1, 0, 1), lightCoefs, 0.5f, 1, 1);
+            materials[0] = new Material(new Vector3((float)Convert.ToDouble(textBox4.Text), (float)Convert.ToDouble(textBox5.Text), (float)Convert.ToDouble(textBox6.Text)), lightCoefs, 0.5f, 1, 1);
+            materials[1] = new Material(new Vector3((float)Convert.ToDouble(textBox7.Text), (float)Convert.ToDouble(textBox8.Text), (float)Convert.ToDouble(textBox9.Text)), lightCoefs, 0.5f, 1, 1);
+            materials[2] = new Material(new Vector3((float)Convert.ToDouble(textBox10.Text), (float)Convert.ToDouble(textBox11.Text), (float)Convert.ToDouble(textBox12.Text)), lightCoefs, 0.5f, 1, 1);
+            materials[3] = new Material(new Vector3((float)Convert.ToDouble(textBox13.Text), (float)Convert.ToDouble(textBox14.Text), (float)Convert.ToDouble(textBox15.Text)), lightCoefs, 0.5f, 1, 1);
+            materials[4] = new Material(new Vector3((float)Convert.ToDouble(textBox16.Text), (float)Convert.ToDouble(textBox17.Text), (float)Convert.ToDouble(textBox18.Text)), lightCoefs, 0.5f, 1, 1);
+            materials[5] = new Material(new Vector3((float)Convert.ToDouble(textBox19.Text), (float)Convert.ToDouble(textBox20.Text), (float)Convert.ToDouble(textBox21.Text)), lightCoefs, 0.5f, 1, 1);
+            materials[6] = new Material(new Vector3((float)Convert.ToDouble(textBox22.Text), (float)Convert.ToDouble(textBox23.Text), (float)Convert.ToDouble(textBox24.Text)), new Vector4(0.4f, 0.9f, 0.9f, 50.0f), 0.8f, 1.5f, 2);
+            materials[7] = new Material(new Vector3((float)Convert.ToDouble(textBox1.Text), (float)Convert.ToDouble(textBox2.Text), (float)Convert.ToDouble(textBox3.Text)), lightCoefs, 0.5f, 1, 1);
             return materials;
         }
 
@@ -157,6 +157,12 @@ namespace TRACING
                 MaterialType = type;
             }
         };
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            InitShaders();
+            Draw();
+        }
     }
 }
 
